@@ -1,0 +1,16 @@
+{
+  "modified": "2022-03-26T04:42:44.6Z",
+  "owner": "system",
+  "name": "Twistlock Labs - CIS - Pod created on host IPC namespace",
+  "previousName": "",
+  "effect": "alert",
+  "script": "match[{\"msg\": msg}] {\n\tinput.request.operation == \"CREATE\"\n\tinput.request.kind.kind == \"Pod\"\n\tinput.request.resource.resource == \"pods\"\n\tinput.request.object.spec.hostIPC\n\tmsg := \"Pod created on host IPC namespace\"\n}",
+  "description": "Minimize the admission of containers wishing to share the host IPC namespace",
+  "skipRawReq": false,
+  "attackTechniques": [
+    "privilegedContainer"
+  ],
+  "policyType": "admission",
+  "exportTime": "06_13_22_12_44_13",
+  "exportBy": "bphan_paloaltonetworks_com"
+}

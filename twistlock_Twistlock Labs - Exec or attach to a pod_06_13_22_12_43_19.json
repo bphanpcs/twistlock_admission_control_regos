@@ -1,0 +1,16 @@
+{
+  "modified": "2022-03-26T04:42:44.6Z",
+  "owner": "system",
+  "name": "Twistlock Labs - Exec or attach to a pod",
+  "previousName": "",
+  "effect": "alert",
+  "script": "match[{\"msg\": msg}] {\n\tinput.request.operation == \"CONNECT\"\n\tinput.request.resource.resource == \"pods\"\n\texec_or_attach(input.request.subResource)\n\tmsg := \"Exec or attach to a pod\"\n}\nexec_or_attach(v) {\n  v == \"exec\"\n}\nexec_or_attach(v) {\n  v == \"attach\"\n}",
+  "description": "Exec or attach to a pod",
+  "skipRawReq": false,
+  "attackTechniques": [
+    "execIntoContainer"
+  ],
+  "policyType": "admission",
+  "exportTime": "06_13_22_12_43_19",
+  "exportBy": "bphan_paloaltonetworks_com"
+}

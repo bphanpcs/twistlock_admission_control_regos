@@ -1,0 +1,16 @@
+{
+  "modified": "2022-03-26T04:42:44.6Z",
+  "owner": "system",
+  "name": "Twistlock Labs - Pod created with sensitive host file system mount",
+  "previousName": "",
+  "effect": "alert",
+  "script": "match[{\"msg\": msg}] {\n\tinput.request.operation == \"CREATE\"\n\tinput.request.kind.kind == \"Pod\"\n\tinput.request.resource.resource == \"pods\"\n\thostPath := input.request.object.spec.volumes[_].hostPath.path\n\tres := [startswith(hostPath, \"/etc\"), startswith(hostPath, \"/var\"), hostPath == \"/\"]\n\tres[_]\n\tmsg := \"Pod created with sensitive host file system mount\"\n}",
+  "description": "Creation of a pod with sensitive host file system mount",
+  "skipRawReq": false,
+  "attackTechniques": [
+    "writableVolumes"
+  ],
+  "policyType": "admission",
+  "exportTime": "06_13_22_12_44_03",
+  "exportBy": "bphan_paloaltonetworks_com"
+}
